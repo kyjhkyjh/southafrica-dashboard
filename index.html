@@ -1,0 +1,416 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sa-green:#007A4D;--sa-gold:#D4A017;--sa-red:#DE3831;
+  --bg:#FAFAF8;--surf:#FFFFFF;--brd:#E4E0D8;--text:#1A1A1A;--muted:#6B6760;--soft:#F2EFE8;
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#111110;--surf:#1C1C1A;--brd:#2E2D2A;--text:#F0EDE6;--muted:#8A8680;--soft:#1C1C1A}
+}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text)}
+.dash{max-width:900px;margin:0 auto;padding-bottom:3rem}
+
+.hdr{background:#1A1A1A;padding:1.75rem 2rem 1.5rem;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(0,122,77,0.06) 40px,rgba(0,122,77,0.06) 41px)}
+.hdr-inner{position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.hdr-left{color:#fff}
+.hdr-flag{font-size:2rem;margin-bottom:0.4rem}
+.hdr-h1{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2rem);font-weight:600;letter-spacing:-0.3px;line-height:1.1}
+.hdr-sub{font-size:0.72rem;color:#9E9A94;margin-top:0.35rem;letter-spacing:0.1em;text-transform:uppercase}
+.hdr-right{text-align:right}
+.hdr-time{font-size:2rem;font-weight:300;color:#fff;font-variant-numeric:tabular-nums}
+.hdr-date{font-size:0.72rem;color:#9E9A94;margin-top:0.2rem;letter-spacing:0.06em}
+
+.flag-strip{display:flex;height:4px}
+.fs1{background:#007A4D;flex:1}.fs2{background:#000;flex:1}.fs3{background:#DE3831;flex:1}.fs4{background:#FFB612;flex:1}.fs5{background:#fff;flex:1}.fs6{background:#007A4D;flex:1}
+
+.sec{padding:1.25rem 2rem 0}
+.sec-lbl{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.85rem;font-weight:500;display:flex;align-items:center;gap:0.5rem}
+.sec-lbl::before{content:'';display:inline-block;width:3px;height:12px;background:var(--sa-gold);border-radius:2px}
+
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:0.65rem}
+@media(max-width:650px){.g4{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--surf);border:0.5px solid var(--brd);border-radius:10px;padding:0.9rem 1rem}
+.kpi-lbl{font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem}
+.kpi-val{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:600;line-height:1;color:var(--text)}
+.kpi-chg{font-size:0.68rem;margin-top:0.3rem}
+.up{color:#007A4D}.dn{color:#DE3831}.nt{color:var(--muted)}
+
+.power-card{background:var(--surf);border:0.5px solid var(--brd);border-radius:10px;padding:0.9rem 1rem;margin-top:0.65rem}
+.stage-wrap{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.5rem}
+.stage{padding:0.28rem 0.65rem;border-radius:20px;font-size:0.7rem;font-weight:500;border:0.5px solid transparent}
+.s0{background:#E8F7F0;color:#005C3A;border-color:#A8D8C0}.s0.cur{outline:2px solid #007A4D;outline-offset:1px}
+.s12{background:#FFF9E6;color:#8A6000;border-color:#EACC70}
+.s34{background:#FFF0E8;color:#9A3A00;border-color:#F0C090}
+.s56{background:#FFE8E8;color:#8A1A1A;border-color:#EFA8A8}
+
+.tabs{display:flex;gap:0.2rem;flex-wrap:wrap;margin-bottom:0.85rem}
+.tab{padding:0.3rem 0.75rem;border-radius:20px;font-size:0.75rem;cursor:pointer;border:0.5px solid var(--brd);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.tab.on{background:#1A1A1A;color:#fff;border-color:#1A1A1A}
+@media(prefers-color-scheme:dark){.tab.on{background:#F0EDE6;color:#111;border-color:#F0EDE6}}
+.tab:hover:not(.on){background:var(--soft)}
+
+.news-list{display:flex;flex-direction:column;gap:0.6rem}
+.ni{background:var(--surf);border:0.5px solid var(--brd);border-radius:10px;padding:0.85rem 1rem;cursor:pointer;transition:border-color 0.15s;text-decoration:none;color:inherit;display:block}
+.ni:hover{border-color:var(--sa-gold)}
+.ni-top{display:flex;align-items:center;gap:0.45rem;margin-bottom:0.35rem;flex-wrap:wrap}
+.bdg{padding:0.18rem 0.5rem;border-radius:12px;font-size:0.66rem;font-weight:500;letter-spacing:0.04em}
+.b정치{background:#EEF2FF;color:#3730A3}.b경제{background:#F0FDF4;color:#166534}.b사회{background:#FFF7ED;color:#9A3412}.b한국{background:#EFF6FF;color:#1D6FB8}.ben{background:#F5F3FF;color:#5B21B6}
+@media(prefers-color-scheme:dark){
+  .b정치{background:#2A2840;color:#A5B4FC}.b경제{background:#1A3020;color:#6EE7B7}.b사회{background:#2D1E10;color:#FDB988}.b한국{background:#1A2840;color:#93C5FD}.ben{background:#261E40;color:#C4B5FD}
+}
+.ni-time{font-size:0.68rem;color:var(--muted);margin-left:auto}
+.ni-src{font-size:0.66rem;color:var(--sa-green);font-weight:500}
+.ni-title{font-size:0.88rem;font-weight:500;line-height:1.4;margin-bottom:0.25rem}
+.ni-body{font-size:0.77rem;color:var(--muted);line-height:1.5}
+.ni-foot{display:flex;align-items:center;gap:0.4rem;margin-top:0.4rem;font-size:0.68rem;color:var(--muted)}
+.ni-link{color:var(--sa-green);font-weight:500;display:flex;align-items:center;gap:3px}
+
+.news-status{padding:1rem;text-align:center;font-size:0.8rem;color:var(--muted);background:var(--surf);border:0.5px solid var(--brd);border-radius:10px}
+.news-search-btn{display:flex;align-items:center;gap:6px;margin:0 auto;padding:0.5rem 1.25rem;border-radius:20px;border:0.5px solid var(--brd);background:transparent;cursor:pointer;font-size:0.8rem;color:var(--text);font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.news-search-btn:hover{background:var(--soft)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem}
+@media(max-width:580px){.g2{grid-template-columns:1fr}}
+
+.card{background:var(--surf);border:0.5px solid var(--brd);border-radius:10px;padding:0.9rem 1rem}
+.card-ttl{font-size:0.75rem;font-weight:500;margin-bottom:0.7rem;color:var(--text)}
+
+.econ-g{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem}
+@media(max-width:480px){.econ-g{grid-template-columns:repeat(2,1fr)}}
+.ekpi{background:var(--soft);border-radius:8px;padding:0.65rem 0.75rem;text-align:center}
+.ekpi-ico{font-size:1rem;margin-bottom:0.2rem}
+.ekpi-lbl{font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em}
+.ekpi-val{font-size:0.9rem;font-weight:500;margin-top:0.1rem}
+
+.seat-bars{display:flex;flex-direction:column;gap:0.35rem}
+.seat-row{display:flex;align-items:center;gap:0.5rem}
+.sname{font-size:0.7rem;width:3rem;flex-shrink:0;color:var(--muted)}
+.sbar-w{flex:1;background:var(--soft);border-radius:3px;height:7px;overflow:hidden}
+.sbar{height:100%;border-radius:3px}
+.anc{background:#007A4D}.da{background:#009FE3}.mk{background:#555}.eff{background:#DE3831}.ifp{background:#F5A623}.etc{background:#B0ADAA}
+.scnt{font-size:0.7rem;width:2rem;text-align:right;color:var(--muted)}
+.gnu-note{margin-top:0.85rem;padding-top:0.75rem;border-top:0.5px solid var(--brd);font-size:0.72rem;color:var(--muted);line-height:1.55}
+
+.issue-list{display:flex;flex-direction:column;gap:0.45rem}
+.issue-row{display:flex;align-items:flex-start;gap:0.6rem;padding:0.55rem 0.7rem;border-radius:8px;background:var(--soft)}
+.idot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:0.28rem}
+.dok{background:#007A4D}.dwarn{background:#D4A017}.ddanger{background:#DE3831}.dprog{background:#3B82F6}
+.iname{font-size:0.8rem;font-weight:500}
+.idesc{font-size:0.72rem;color:var(--muted);line-height:1.45;margin-top:0.1rem}
+
+.trend-list{display:flex;flex-direction:column;gap:0.4rem}
+.tr-row{display:flex;align-items:center;gap:0.5rem;font-size:0.78rem}
+.tr-rank{font-size:0.65rem;color:var(--muted);width:1rem;text-align:right;flex-shrink:0}
+.tr-tag{font-weight:500;flex:1}
+.tr-cnt{font-size:0.7rem;color:var(--muted)}
+.tr-pct{font-size:0.65rem;padding:0.12rem 0.4rem;border-radius:10px;background:#E8F7F0;color:#005C3A;font-weight:500}
+
+.sns-g{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem}
+.sns-c{background:var(--soft);border-radius:8px;padding:0.65rem 0.75rem;font-size:0.76rem}
+.sns-p{font-weight:500;margin-bottom:0.2rem}
+.sns-t{color:var(--muted);font-size:0.71rem;line-height:1.4}
+
+.culture-g{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem}
+@media(max-width:500px){.culture-g{grid-template-columns:repeat(2,1fr)}}
+.cc{background:var(--soft);border-radius:10px;padding:0.75rem;display:flex;flex-direction:column;gap:0.25rem}
+.cc-ico{font-size:1.3rem}
+.cc-name{font-size:0.8rem;font-weight:500}
+.cc-desc{font-size:0.7rem;color:var(--muted);line-height:1.4}
+.cc-tag{font-size:0.62rem;padding:0.15rem 0.45rem;border-radius:10px;background:var(--surf);border:0.5px solid var(--brd);color:var(--muted);display:inline-block;margin-top:auto}
+
+.climate-g{display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem}
+@media(max-width:550px){.climate-g{grid-template-columns:repeat(2,1fr)}}
+.clm{background:var(--soft);border-radius:10px;padding:0.75rem;text-align:center}
+.clm-city{font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.2rem}
+.clm-temp{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;color:var(--text)}
+.clm-ico{font-size:1rem;margin-bottom:0.15rem}
+.clm-cond{font-size:0.68rem;color:var(--muted);margin-top:0.2rem;line-height:1.4}
+
+.env-note{margin-top:0.65rem;background:var(--surf);border:0.5px solid var(--brd);border-left:3px solid var(--sa-green);border-radius:0 8px 8px 0;padding:0.75rem 0.9rem;font-size:0.77rem;color:var(--muted);line-height:1.6}
+
+.footer{padding:1.25rem 2rem 0;font-size:0.68rem;color:var(--muted);border-top:0.5px solid var(--brd);margin:1.25rem 2rem 0;line-height:1.7}
+
+.news-list{display:flex;flex-direction:column;gap:0.55rem;margin-top:0.6rem}
+.news-item{display:block;padding:0.7rem 0.8rem 0.75rem;border-radius:10px;border:0.5px solid var(--brd);background:var(--surf);text-decoration:none;color:var(--text)}
+.news-item:hover{background:var(--soft)}
+.ni-meta{font-size:0.68rem;color:var(--muted);margin-bottom:0.3rem;display:flex;flex-wrap:wrap;gap:0.25rem;align-items:center}
+.ni-dot{opacity:0.6}
+.ni-title{font-size:0.8rem;font-weight:500;margin-bottom:0.18rem}
+.ni-desc{font-size:0.74rem;color:var(--muted);line-height:1.4}
+</style>
+
+<div class="dash">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-left">
+      <div class="hdr-flag">🇿🇦</div>
+      <div class="hdr-h1">남아프리카공화국 대시보드</div>
+      <div class="hdr-sub">뉴스 · 경제 · 정치 · 문화 · 트렌드</div>
+    </div>
+    <div class="hdr-right">
+      <div class="hdr-time" id="clock">--:--</div>
+      <div class="hdr-date">요하네스버그 현지시각 · 5월 31일 (일)</div>
+    </div>
+  </div>
+</div>
+<div class="flag-strip"><div class="fs1"></div><div class="fs2"></div><div class="fs3"></div><div class="fs4"></div><div class="fs5"></div><div class="fs6"></div></div>
+
+<div class="sec">
+  <div class="sec-lbl">핵심 지표</div>
+  <div class="g4">
+    <div class="kpi"><div class="kpi-lbl">인구</div><div class="kpi-val">6,290만</div><div class="kpi-chg up">▲ +1.2% · 2025년 추정</div></div>
+    <div class="kpi"><div class="kpi-lbl">GDP (명목)</div><div class="kpi-val">$3,950억</div><div class="kpi-chg up">▲ +4.3% · 2024년</div></div>
+    <div class="kpi"><div class="kpi-lbl">실업률</div><div class="kpi-val">33.5%</div><div class="kpi-chg dn">▲ +0.6%p · 2025 Q1</div></div>
+    <div class="kpi"><div class="kpi-lbl">환율 (USD/ZAR)</div><div class="kpi-val">R 18.4</div><div class="kpi-chg up">▼ −2.1% ZAR 강세</div></div>
+  </div>
+  <div class="power-card">
+    <div style="font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.45rem">로드쉐딩 현황 · 에스콤(Eskom)</div>
+    <div class="stage-wrap">
+      <span class="stage s0 cur">단계 0 — 정상 공급 중</span>
+      <span class="stage s12">단계 1–2</span>
+      <span class="stage s34">단계 3–4</span>
+      <span class="stage s56">단계 5–6+</span>
+    </div>
+    <div style="font-size:0.7rem;color:#007A4D;margin-top:0.45rem">✓ 2024년 하반기 이후 단계 0 유지 중 — 에스콤 발전 용량 회복</div>
+  </div>
+</div>
+
+<div class="sec" style="margin-top:1.25rem">
+  <div class="sec-lbl">뉴스 피드</div>
+  <div class="tabs" id="news-tabs">
+    <button class="tab on" onclick="setNewsTab('all',this)">전체</button>
+    <button class="tab" onclick="setNewsTab('정치',this)">정치</button>
+    <button class="tab" onclick="setNewsTab('경제',this)">경제</button>
+    <button class="tab" onclick="setNewsTab('사회',this)">사회</button>
+    <button class="tab" onclick="setNewsTab('한국',this)">🇰🇷 한국</button>
+  </div>
+  <div id="news-container">
+    <div class="news-list">
+      <a href="https://example.com/za/gnu-budget-2025" class="news-item" target="_blank" rel="noopener noreferrer" data-category="정치">
+        <div class="ni-meta">
+          <span class="ni-date">2025-05-28</span><span class="ni-dot">·</span><span class="ni-src">Business Day</span><span class="ni-dot">·</span><span class="ni-cat">정치</span>
+        </div>
+        <div class="ni-title">GNU 예산안 협상, 복지·재정건전화 줄다리기 지속</div>
+        <div class="ni-desc">ANC·DA가 2025년 예산안에서 복지 지출과 재정 건전화 방향을 두고 견해 차이를 보이며 협상을 이어가고 있음.</div>
+      </a>
+      <a href="https://example.com/za/brics-mediation" class="news-item" target="_blank" rel="noopener noreferrer" data-category="정치">
+        <div class="ni-meta">
+          <span class="ni-date">2025-05-15</span><span class="ni-dot">·</span><span class="ni-src">Mail & Guardian</span><span class="ni-dot">·</span><span class="ni-cat">정치</span>
+        </div>
+        <div class="ni-title">남아공, BRICS+ 무대에서 러·우 중재 역할 재부각</div>
+        <div class="ni-desc">라마포사 대통령이 브릭스 정상회의에서 러시아-우크라이나 평화 중재 노력을 재차 강조하며 글로벌 사우스 리더십 이미지를 강화.</div>
+      </a>
+      <a href="https://example.com/za/jet-transition" class="news-item" target="_blank" rel="noopener noreferrer" data-category="경제">
+        <div class="ni-meta">
+          <span class="ni-date">2025-04-30</span><span class="ni-dot">·</span><span class="ni-src">Reuters</span><span class="ni-dot">·</span><span class="ni-cat">경제</span>
+        </div>
+        <div class="ni-title">$8.5B JET 자금, 석탄 지역 일자리 전환이 최대 과제로</div>
+        <div class="ni-desc">국제 파트너십 재원 집행이 본격화되면서 Mpumalanga 등 석탄 의존 지역의 고용 전환 프로그램 설계가 핵심 쟁점으로 떠오름.</div>
+      </a>
+      <a href="https://example.com/za/unemployment-youth" class="news-item" target="_blank" rel="noopener noreferrer" data-category="사회">
+        <div class="ni-meta">
+          <span class="ni-date">2025-04-12</span><span class="ni-dot">·</span><span class="ni-src">News24</span><span class="ni-dot">·</span><span class="ni-cat">사회</span>
+        </div>
+        <div class="ni-title">청년 실업률 60% 근접…직업훈련·스타트업 지원 확대 요구</div>
+        <div class="ni-desc">남아공 통계청이 발표한 최신 자료에 따르면 청년층 실업이 구조적으로 고착되는 조짐을 보여 정부 일자리 대책에 대한 비판이 커지고 있음.</div>
+      </a>
+      <a href="https://example.com/za/kr-30th-anniversary" class="news-item" target="_blank" rel="noopener noreferrer" data-category="한국">
+        <div class="ni-meta">
+          <span class="ni-date">2025-03-25</span><span class="ni-dot">·</span><span class="ni-src">연합뉴스</span><span class="ni-dot">·</span><span class="ni-cat">한국</span>
+        </div>
+        <div class="ni-title">한·남아공 수교 30주년…요하네스버그서 K-문화 주간 개최</div>
+        <div class="ni-desc">한국문화원 주관으로 K-pop 콘서트와 한국 음식·영화 상영이 열리며 현지 한류 관심을 재확인하는 계기가 됨.</div>
+      </a>
+      <a href="https://example.com/za/kr-hyundai-investment" class="news-item" target="_blank" rel="noopener noreferrer" data-category="한국">
+        <div class="ni-meta">
+          <span class="ni-date">2025-03-10</span><span class="ni-dot">·</span><span class="ni-src">The Korea Herald</span><span class="ni-dot">·</span><span class="ni-cat">한국</span>
+        </div>
+        <div class="ni-title">현대차, 요하네스버그 공장 R8억 증설…아프리카 수출 거점 강화</div>
+        <div class="ni-desc">조립라인 현대화와 고용 확대를 통해 남부아프리카 관세동맹(SACU) 시장 공략에 속도를 내겠다는 전략.</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="sec" style="margin-top:1.25rem">
+  <div class="sec-lbl">정치 지형</div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-ttl">국회 의석 현황 (400석)</div>
+      <div class="seat-bars">
+        <div class="seat-row"><div class="sname">ANC</div><div class="sbar-w"><div class="sbar anc" style="width:39.75%"></div></div><div class="scnt">159</div></div>
+        <div class="seat-row"><div class="sname">DA</div><div class="sbar-w"><div class="sbar da" style="width:21.75%"></div></div><div class="scnt">87</div></div>
+        <div class="seat-row"><div class="sname">MK당</div><div class="sbar-w"><div class="sbar mk" style="width:14.5%"></div></div><div class="scnt">58</div></div>
+        <div class="seat-row"><div class="sname">EFF</div><div class="sbar-w"><div class="sbar eff" style="width:9.75%"></div></div><div class="scnt">39</div></div>
+        <div class="seat-row"><div class="sname">IFP</div><div class="sbar-w"><div class="sbar ifp" style="width:4.25%"></div></div><div class="scnt">17</div></div>
+        <div class="seat-row"><div class="sname">기타</div><div class="sbar-w"><div class="sbar etc" style="width:10%"></div></div><div class="scnt">40</div></div>
+      </div>
+      <div class="gnu-note">
+        <span style="font-weight:500;color:var(--text)">국가통합정부(GNU)</span> — ANC·DA·IFP·소수정당 연정. 시릴 라마포사 2기 집권. 민주화 이후 최초 연립정부. 차기 총선 2029년.<br><br>
+        <span style="font-weight:500;color:var(--text)">주요 야당 동향</span> — MK당(KwaZulu-Natal 제1당)·EFF GNU 불참. 주마 전 대통령 헌법재판소 갈등 지속. EFF는 토지 무상몰수 등 급진 정책 주장.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-ttl">국내외 정치 이슈</div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem">
+        <div style="padding:0.55rem 0.7rem;border-radius:8px;background:var(--soft)">
+          <div style="font-size:0.78rem;font-weight:500;margin-bottom:0.15rem">GNU 예산안 협상</div>
+          <div style="font-size:0.71rem;color:var(--muted);line-height:1.45">2025년 예산안 처리를 둘러싼 ANC-DA 갈등. 복지 지출 확대 vs. 재정 건전화 노선 충돌 중.</div>
+        </div>
+        <div style="padding:0.55rem 0.7rem;border-radius:8px;background:var(--soft)">
+          <div style="font-size:0.78rem;font-weight:500;margin-bottom:0.15rem">BRICS+ 외교 역할</div>
+          <div style="font-size:0.71rem;color:var(--muted);line-height:1.45">글로벌 사우스 리더십 지속. 러-우 평화 중재 시도, 중국·러시아·서방 사이 균형 외교.</div>
+        </div>
+        <div style="padding:0.55rem 0.7rem;border-radius:8px;background:var(--soft)">
+          <div style="font-size:0.78rem;font-weight:500;margin-bottom:0.15rem">국제형사재판소(ICC) 갈등</div>
+          <div style="font-size:0.71min;color:var(--muted);line-height:1.45">푸틴 대통령 입국 시 체포영장 집행 문제로 ICC 회원국 지위 논란 재점화.</div>
+        </div>
+        <div style="padding:0.55rem 0.7rem;border-radius:8px;background:var(--soft)">
+          <div style="font-size:0.78rem;font-weight:500;margin-bottom:0.15rem">부패·국가포획 청산</div>
+          <div style="font-size:0.71rem;color:var(--muted);line-height:1.45">주마 시대 국가포획 관련 재판 진행 중. SARS·검찰 역량 재건 중이나 절차 지연 상존.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec" style="margin-top:1.25rem">
+  <div class="sec-lbl">주요 이슈</div>
+  <div class="tabs" id="issue-tabs">
+    <button class="tab on" onclick="setIssueTab('all',this)">전체 이슈</button>
+    <button class="tab" onclick="setIssueTab('kr',this)">🇰🇷 한국 관련 이슈</button>
+  </div>
+  <div class="issue-list" id="issue-all">
+    <div class="issue-row"><div class="idot dok"></div><div><div class="iname">전력 위기(로드쉐딩) — 개선</div><div class="idesc">에스콤 발전 용량 회복으로 2024년 하반기부터 단계 0 유지. 신재생에너지 독립발전사업자(IPP) 계약 확대로 구조적 개선 중. 단, 노후 석탄화력 설비 문제는 지속.</div></div></div>
+    <div class="issue-row"><div class="idot ddanger"></div><div><div class="iname">높은 실업률 — 위험</div><div class="idesc">공식 실업률 33.5%, 청년(15~34세) 실업률 약 60%. 기술 불일치, 교육 격차, 민간투자 부족이 복합 원인. 사회보조금(SRD) 의존 인구 약 2,800만 명.</div></div></div>
+    <div class="issue-row"><div class="idot dwarn"></div><div><div class="iname">수도·위생 인프라 — 주의</div><div class="idesc">요하네스버그·넬스프루잇 등 다수 지역 상하수도 노후화로 급수 제한·오염 빈발. 2024년 요하네스버그 수도 위기로 시위 발생. 지자체 재정 부실 원인.</div></div></div>
+    <div class="issue-row"><div class="idot dwarn"></div><div><div class="iname">토지 개혁 — 주의</div><div class="idesc">보상 없는 토지 수용(EWC) 관련 법안 논란. 농업 투자 위축 우려 vs. 역사적 불평등 해소 필요성 충돌. 백인 농민 단체의 국제 로비 활동도 활발.</div></div></div>
+    <div class="issue-row"><div class="idot ddanger"></div><div><div class="iname">범죄·치안 — 위험</div><div class="idesc">연간 살인 건수 약 2만7천 건(세계 최고 수준). 케이프플랫 갱단 문제, 요하네스버그 CBD 범죄. 경찰력 부족·부패가 구조적 원인. 민간 보안시장 세계 최대.</div></div></div>
+    <div class="issue-row"><div class="idot dprog"></div><div><div class="iname">에너지 전환(JET) — 진행</div><div class="idesc">EU·미국·영국·프랑스·독일로부터 $8.5B 지원. 2030년 재생에너지 비중 40% 목표. 석탄 의존 지역 근로자 일자리 전환 문제가 과제.</div></div></div>
+  </div>
+  <div class="issue-list" id="issue-kr" style="display:none">
+    <div class="issue-row"><div class="idot dok"></div><div><div class="iname">현대자동차 요하네스버그 공장 R8억 증설</div><div class="idesc">남아공 조립 생산 역량 강화 투자. 현지 고용 창출 및 부품 현지화율 제고 목표. 아프리카 시장 공략 전진기지로 활용.</div></div></div>
+    <div class="issue-row"><div class="idot dok"></div><div><div class="iname">한·남아공 수교 30주년 문화 교류 확대</div><div class="idesc">요하네스버그 한국문화원 주관 기념 행사. K-pop·한국 음식 페스티벌 개최. 한국어 학습 수요 증가로 세종학당 확장 논의 중.</div></div></div>
+    <div class="issue-row"><div class="idot dok"></div><div><div class="iname">K-pop·한류 팬덤 성장</div><div class="idesc">남아공 전역 K-pop 팬클럽 조직화. 아마피아노와 K-pop 크로스오버 음악 인기. BTS·블랙핑크 관련 팬미팅 자체 개최. 한국 드라마 넷플릭스 인기 급등.</div></div></div>
+    <div class="issue-row"><div class="idot dwarn"></div><div><div class="iname">KOICA 개발협력 사업 현황</div><div class="idesc">직업훈련·농업·보건 분야 ODA 사업 진행 중. 한국 NGO 현지 활동 확대. 한-아프리카 정상회의 후속 협력 과제 이행 모니터링 중.</div></div></div>
+    <div class="issue-row"><div class="idot dwarn"></div><div><div class="iname">한국 교민·여행자 치안 주의</div><div class="idesc">요하네스버그·케이프타운 일부 지역 강력범죄 빈발. 외교부 여행경보 1단계(여행 유의) 발령 유지. 한인회 중심 안전 네트워크 운영 중.</div></div></div>
+    <div class="issue-row"><div class="idot dprog"></div><div><div class="iname">삼성·LG 남아공 시장 점유율 경쟁</div><div class="idesc">스마트폰·가전 시장에서 한국 브랜드 선두 유지. 중국 화웨이·하이얼 추격 심화. 프리미엄 시장에서 상대적 강세 지속.</div></div></div>
+  </div>
+</div>
+
+<div class="sec" style="margin-top:1.25rem">
+  <div class="sec-lbl">SNS 트렌드</div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-ttl">X(트위터) 핫토픽</div>
+      <div class="trend-list">
+        <div class="tr-row"><div class="tr-rank">1</div><div class="tr-tag">#LoadSheddingFree</div><div class="tr-cnt">128K</div><div class="tr-pct">+45%</div></div>
+        <div class="tr-row"><div class="tr-rank">2</div><div class="tr-tag">#BudgetSpeech2025</div><div class="tr-cnt">94K</div><div class="tr-pct">+120%</div></div>
+        <div class="tr-row"><div class="tr-rank">3</div><div class="tr-tag">#CapeTownCarnival</div><div class="tr-cnt">67K</div><div class="tr-pct">+89%</div></div>
+        <div class="tr-row"><div class="tr-rank">4</div><div class="tr-tag">#SpringboksTest</div><div class="tr-cnt">55K</div><div class="tr-pct">+33%</div></div>
+        <div class="tr-row"><div class="tr-rank">5</div><div class="tr-tag">#ZARStrength</div><div class="tr-cnt">41K</div><div class="tr-pct">+28%</div></div>
+        <div class="tr-row"><div class="tr-rank">6</div><div class="tr-tag">#SowetoDerby</div><div class="tr-cnt">38K</div><div class="tr-pct">+15%</div></div>
+        <div class="tr-row"><div class="tr-rank">7</div><div class="tr-tag">#AmaplaNation</div><div class="tr-cnt">29K</div><div class="tr-pct">+22%</div></div>
+        <div class="tr-row"><div class="tr-rank">8</div><div class="tr-tag">#AfrikaansMonth</div><div class="tr-cnt">24K</div><div class="tr-pct">+11%</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-ttl">플랫폼별 화제</div>
+      <div class="sns-g">
+        <div class="sns-c"><div class="sns-p">𝕏 X/트위터</div><div class="sns-t">#LoadSheddingFree 300일 돌파 — "에스콤 진짜 달라졌나?" 3.2만 RT</div></div>
+        <div class="sns-c"><div class="sns-p">📸 인스타그램</div><div class="sns-t">테이블 마운틴 일출 #CapeTown 바이럴 — 87만 좋아요</div></div>
+        <div class="sns-c"><div class="sns-p">🎵 틱톡</div><div class="sns-t">아마피아노 챌린지 전 세계 1.2억 뷰 달성</div></div>
+        <div class="sns-c"><div class="sns-p">📘 페이스북</div><div class="sns-t">소웨토 더비 예매 2시간 매진 — 카이저 치프스 vs 올란도</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec" style="margin-top:1.25rem">
+  <div class="sec-lbl">경제 지표</div>
+  <div class="card">
+    <div class="econ-g">
+      <div class="ekpi"><div class="ekpi-ico">🏦</div><div class="ekpi-lbl">기준금리</div><div class="ekpi-val">8.00%</div></div>
+      <div class="ekpi"><div class="ekpi-ico">💱</div><div class="ekpi-lbl">USD/ZAR</div><div class="ekpi-val">R 18.4</div></div>
+      <div class="ekpi"><div class="ekpi-ico">🏛️</div><div class="ekpi-lbl">외환보유고</div><div class="ekpi-val">$634억</div></div>
+      <div class="ekpi"><div class="ekpi-ico">📉</div><div class="ekpi-lbl">재정적자/GDP</div><div class="ekpi-val">−4.7%</div></div>
+      <div class="ekpi"><div class="ekpi-ico">📊</div><div class="ekpi-lbl">국가채무/GDP</div><div class="ekpi-val">75.9%</div></div>
+      <div class="ekpi"><div class="ekpi-ico">⛏️</div><div class="ekpi-lbl">광업 생산</div><div class="ekpi-val">+3.2%</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="sec" style="margin-top:1.25rem">
+  <div class="sec-lbl">문화 & 라이프스타일</div>
+  <div class="culture-g">
+    <div class="cc"><div class="cc-ico">🏉</div><div class="cc-name">스프링복스</div><div class="cc-desc">2023 럭비 월드컵 4연패. 인종 통합 상징. 2025 테스트 매치 시리즈 진행 중.</div><div class="cc-tag">스포츠</div></div>
+    <div class="cc"><div class="cc-ico">🎵</div><div class="cc-name">아마피아노</div><div class="cc-desc">요하네스버그발 하우스 뮤직. 글로벌 빌보드 진입. K-pop 아티스트 콜라보 활발.</div><div class="cc-tag">음악</div></div>
+    <div class="cc"><div class="cc-ico">🍖</div><div class="cc-name">브라이(Braai)</div><div class="cc-desc">전국민적 바베큐 문화. 9월 24일 유산의 날 = 국가 브라이 데이.</div><div class="cc-tag">음식문화</div></div>
+    <div class="cc"><div class="cc-ico">🦁</div><div class="cc-name">사파리 관광</div><div class="cc-desc">크루거 국립공원 중심 회복. 2024년 외국인 관광객 코로나 이전 수준 달성.</div><div class="cc-tag">관광</div></div>
+    <div class="cc"><div class="cc-ico">🎨</div><div class="cc-name">소웨토 아트 씬</div><div class="cc-desc">조벌 갤러리·거리 예술. 아프리카 현대미술 허브로 국제 주목. 아트 페어 증가.</div><div class="cc-tag">예술</div></div>
+    <div class="cc"><div class="cc-ico">⚽</div><div class="cc-name">소웨토 더비</div><div class="cc-desc">카이저 치프스 vs 올란도 파이리츠. 남아공 최대 축구 라이벌전. 국가적 이벤트.</div><div class="cc-tag">스포츠</div></div>
+    <div class="cc"><div class="cc-ico">✊</div><div class="cc-name">만델라 유산</div><div class="cc-desc">민주화 30주년 재조명. 반아파르트헤이트 역사 관광지 방문 급증. Ubuntu 정신.</div><div class="cc-tag">역사</div></div>
+    <div class="cc"><div class="cc-ico">🍷</div><div class="cc-name">케이프 와인</div><div class="cc-desc">스텔렌보시·프란슈후크 와인 루트. 세계적 품질 인정. 유럽·아시아 수출 급증.</div><div class="cc-tag">식음료</div></div>
+    <div class="cc"><div class="cc-ico">💃</div><div class="cc-name">케이프 카니발</div><div class="cc-desc">매년 1월 케이프타운에서 열리는 세계 최대 거리 카니발 중 하나. 음악·댄스.</div><div class="cc-tag">축제</div></div>
+  </div>
+</div>
+
+<div class="sec" style="margin-top:1.25rem">
+  <div class="sec-lbl">기후 & 환경</div>
+  <div class="climate-g">
+    <div class="clm"><div class="clm-ico">🌤️</div><div class="clm-city">케이프타운</div><div class="clm-temp">17°C</div><div class="clm-cond">가을·맑음·건조<br>우기 시작</div></div>
+    <div class="clm"><div class="clm-ico">☀️</div><div class="clm-city">요하네스버그</div><div class="clm-temp">14°C</div><div class="clm-cond">겨울 진입·건기<br>일교차 큼</div></div>
+    <div class="clm"><div class="clm-ico">🌊</div><div class="clm-city">더반</div><div class="clm-temp">23°C</div><div class="clm-cond">온난·습윤<br>인도양 해안</div></div>
+    <div class="clm"><div class="clm-ico">🍂</div><div class="clm-city">프리토리아</div><div class="clm-temp">16°C</div><div class="clm-cond">선선·건기<br>이른 겨울</div></div>
+  </div>
+  <div class="env-note">
+    <strong style="color:var(--text)">기후변화 & 에너지 전환</strong><br>
+    남아공은 아프리카 최대 온실가스 배출국(석탄 의존도 85%). Just Energy Transition(JET) 파트너십으로 EU·미국·영국·독일·프랑스 등에서 <strong style="color:var(--text)">$8.5B 지원 약속</strong>. 2030년까지 재생에너지 비중 40% 목표. 서부 케이프 가뭄 심화, 해수면 상승으로 더반 해안 침식 우려. 코뿔소·코끼리 밀렵 단속 강화 중.
+  </div>
+</div>
+
+<div class="footer">
+  출처: Statistics South Africa · SARB · World Bank · IMF · X/Twitter Trends · 현지 미디어 종합<br>
+  업데이트: 2025년 5월 기준 큐레이션 데이터 · 뉴스 피드는 실시간 검색 기반
+</div>
+
+</div>
+
+<script>
+const clockEl = document.getElementById('clock');
+function tick(){
+  const n=new Date(),u=n.getTime()+n.getTimezoneOffset()*60000,s=new Date(u+2*3600000);
+  clockEl.textContent=s.getHours().toString().padStart(2,'0')+':'+s.getMinutes().toString().padStart(2,'0');
+}
+tick();setInterval(tick,10000);
+
+let curNewsCat='all';
+function setNewsTab(cat,btn){
+  document.querySelectorAll('#news-tabs .tab').forEach(t=>t.classList.remove('on'));
+  btn.classList.add('on');
+  curNewsCat=cat;
+  const c=document.getElementById('news-container');
+  const items=c.querySelectorAll('.ni');
+  if(items.length>0){
+    items.forEach(item=>{
+      const ic=item.dataset.cat||'';
+      item.style.display=(cat==='all'||ic===cat)?'block':'none';
+    });
+  }
+}
+
+function setIssueTab(tab,btn){
+  document.querySelectorAll('#issue-tabs .tab').forEach(t=>t.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('issue-all').style.display=tab==='all'?'flex':'none';
+  document.getElementById('issue-kr').style.display=tab==='kr'?'flex':'none';
+}
+
+function searchNews(){
+  sendPrompt('남아공 관련 최신 뉴스를 한국어·영어로 검색해서 뉴스 피드 형식으로 보여줘. 각 기사마다 카테고리(정치/경제/사회/한국), 제목, 요약, 출처, 링크를 포함해줘.');
+}
+</script>
